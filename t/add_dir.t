@@ -19,6 +19,14 @@ BEGIN {
 
 my $root = File::Spec->catdir( "t", "root" );
 
+#
+# Note: I couldn't get dzil build to copy the .htaccess file, so we'll
+# create it here.
+#
+open( my $htaccess, '>', File::Spec->catdir( 't', 'root', 'apache', '.htaccess' ) );
+print $htaccess "DirectoryIndex test.html\n";
+close $htaccess;
+
 my $app = Plack::App::Directory->new( { root => $root } )->to_app;
 $app = Plack::Middleware::DirIndex->wrap( $app, root => $root );
 $app

@@ -20,7 +20,7 @@ Plack::Middleware::DirIndex - Middleware to use with Plack::App::Directory and t
 If $env->{PATH\_INFO} ends with a '/' then we will append the dir\_index
 value to it (defaults to index.html)
 
-If there is no dir_index file in the directory, we will look to see if
+If there is no dir\_index file in the directory, we will look to see if
 there is an Apache-styled .htaccess file with a defined DirectoryIndex
 and use that file instead.
 
