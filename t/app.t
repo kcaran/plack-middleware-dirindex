@@ -39,8 +39,13 @@ app_tests
     },
     {   name    => 'Dir with no index file',
         request => [ GET => '/other/' ],
-        content => '404 page',
-        headers => { 'Content-Type' => 'text/html', },
+        content => qr[<title>Index of /other/</title>],
+        headers => { 'Content-Type' => 'text/html; charset=utf-8', },
+    },
+    {   name    => 'Dir with .htaccess',
+        request => [ GET => '/apache/' ],
+        content => qr[Test],
+        headers => { 'Content-Type' => 'text/html; charset=utf-8', },
     },
     ];
 
@@ -55,8 +60,8 @@ app_tests
     tests => [
     {   name    => 'Dir with no matching index file (now)',
         request => [ GET => '/' ],
-        content => '404 page',
-        headers => { 'Content-Type' => 'text/html', },
+        content => qr[<title>Index of /</title>],
+        headers => { 'Content-Type' => 'text/html; charset=utf-8', },
     },
     {   name    => 'Basic request for alternative index file',
         request => [ GET => '/other/' ],

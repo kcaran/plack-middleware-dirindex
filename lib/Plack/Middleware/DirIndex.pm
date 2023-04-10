@@ -1,5 +1,4 @@
 package Plack::Middleware::DirIndex;
-$Plack::Middleware::DirIndex::VERSION = '1.01';
 # ABSTRACT: Append an index file to request PATH's ending with a /
 
 use parent qw( Plack::Middleware );
@@ -30,6 +29,13 @@ Plack::Middleware::DirIndex - Middleware to use with Plack::App::Directory and t
 
 If $env->{PATH_INFO} ends with a '/' then we will append the dir_index
 value to it (defaults to index.html)
+
+If there is no dir_index file in the directory, we will look to see if
+there is an Apache-styled .htaccess file with a defined DirectoryIndex
+and use that file instead.
+
+Finally, if no file is present the directory's listing is displayed,
+as in Plack::App::Directory.
 
 =head1 COPYRIGHT & LICENSE
 

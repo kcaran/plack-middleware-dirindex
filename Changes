@@ -1,6 +1,10 @@
 Revision history for Perl module Plack::Middleware::DirIndex:
 
-1.00 Wed 09 Dec 2020 20:59:00 GMT
+1.02 Mon 10 Apr 2023 19:16:00 GMT
+  - Use .htaccess DirectoryIndex or show directory listing if
+    index.html not present
+
+1.01 Wed 09 Dec 2020 20:59:00 GMT
   - Only try to serve the index file if it exists
 
 1.00 Tue 27 Jan 2015 08:48:45 GMT
