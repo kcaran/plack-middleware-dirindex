@@ -29,8 +29,6 @@ close $htaccess;
 
 my $app = Plack::App::Directory->new( { root => $root } )->to_app;
 $app = Plack::Middleware::DirIndex->wrap( $app, root => $root );
-$app
-    = Plack::Middleware::ErrorDocument->wrap( $app, 404 => "$root/404.html" );
 
 app_tests
     app   => $app,
@@ -55,6 +53,12 @@ app_tests
         content => qr[Test],
         headers => { 'Content-Type' => 'text/html; charset=utf-8', },
     },
+    {   name    => 'Bad 404 request',
+        request => [ GET => '/missing.html' ],
+        code => 404,
+        content => qr[Not Found]i,
+        headers => { 'Content-Type' => 'text/plain', },
+    },
     ];
 
 # Now test setting up alternative index (alt.html) file, not default
@@ -75,6 +79,12 @@ app_tests
         request => [ GET => '/other/' ],
         content => 'Alt Index',
         headers => { 'Content-Type' => 'text/html; charset=utf-8', },
+    },
+    {   name    => 'Bad 404 request',
+        request => [ GET => '/missing.html' ],
+        code => 404,
+        content => qr[404 page]i,
+        headers => { 'Content-Type' => 'text/html', },
     },
     ];
 
